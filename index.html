@@ -1,94 +1,140 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MedCalc — Medical Calculators</title>
-<meta name="description" content="Free medical calculators for students and healthcare professionals.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MedCalc — Free Medical Calculators & Clinical Tools</title>
+<meta name="description" content="Free medical calculators for healthcare professionals and medical students: BMI, BSA, eGFR, creatinine clearance, anion gap, GCS, Wells, CHA2DS2-VASc, HAS-BLED and more.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#1769e0">
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f5f7fb;color:#172033}
-header{background:#fff;border-bottom:1px solid #e6e9ef;padding:22px 7%;display:flex;justify-content:space-between;align-items:center}
-.logo{font-size:24px;font-weight:800}.logo span{color:#1976d2}
-header small{color:#667085}.container{max-width:1050px;margin:35px auto;padding:0 20px}
-.hero{background:#fff;border-radius:18px;padding:35px;box-shadow:0 5px 25px #00000008}
-h1{margin:0 0 10px;font-size:36px}.hero p{color:#667085;font-size:17px}
-.search{width:100%;padding:14px 16px;border:1px solid #d9dee8;border-radius:10px;font-size:16px;margin-top:18px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:24px}
-.card{background:#fff;padding:22px;border:1px solid #e8ebf0;border-radius:14px;cursor:pointer;transition:.15s}
-.card:hover{transform:translateY(-2px);box-shadow:0 8px 20px #0000000d}.card h3{margin:0 0 8px}.card p{margin:0;color:#667085;font-size:14px}
-.panel{display:none;background:#fff;margin-top:24px;padding:28px;border-radius:16px;border:1px solid #e8ebf0}
-.panel.active{display:block}.back{border:0;background:none;color:#1976d2;cursor:pointer;margin-bottom:15px}
-label{display:block;margin:14px 0 6px;font-weight:600}input,select{width:100%;padding:12px;border:1px solid #d9dee8;border-radius:9px;font-size:16px}
-button.calc{margin-top:18px;background:#1976d2;color:#fff;border:0;padding:13px 20px;border-radius:9px;font-size:16px;cursor:pointer}
-.result{margin-top:20px;padding:18px;background:#eef6ff;border-radius:10px;font-size:20px;font-weight:700}
-.note{margin-top:18px;color:#667085;font-size:13px;line-height:1.5}
-footer{text-align:center;padding:35px;color:#667085;font-size:13px}
+:root{--p:#1769e0;--pd:#0f55bd;--ink:#172033;--muted:#667085;--bg:#f4f7fb;--card:#fff;--line:#e3e8f0;--soft:#edf5ff;--good:#edf8f1;--warn:#fff7e8}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--ink)}button,input,select{font:inherit}
+.nav{height:72px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 max(20px,6vw);position:sticky;top:0;z-index:10}
+.logo{font-size:25px;font-weight:900;letter-spacing:-1px}.logo span{color:var(--p)}.navlinks{display:flex;gap:25px}.navlinks a{color:#566274;text-decoration:none;font-size:14px;font-weight:700}.navlinks a:hover{color:var(--p)}
+.hero{background:linear-gradient(135deg,#0e58c7,#2588ef);color:#fff;padding:70px 20px 78px}.hero-inner{max-width:1050px;margin:auto;text-align:center}.badge{display:inline-block;padding:7px 12px;border:1px solid #ffffff38;background:#ffffff18;border-radius:99px;font-size:12px;font-weight:800;letter-spacing:.4px}
+.hero h1{font-size:clamp(38px,6vw,60px);line-height:1.03;letter-spacing:-2.5px;margin:18px auto;max-width:820px}.hero p{max-width:700px;margin:0 auto 28px;color:#eaf3ff;font-size:18px;line-height:1.6}.searchbox{max-width:700px;margin:auto;position:relative}.search{width:100%;height:58px;border:0;border-radius:14px;padding:0 20px 0 50px;font-size:16px;outline:0;box-shadow:0 12px 32px #063b8628}.searchicon{position:absolute;left:19px;top:16px;color:#758196;font-size:22px}
+main{max-width:1080px;margin:auto;padding:45px 20px 75px}.sectionhead{display:flex;align-items:end;justify-content:space-between;gap:15px;margin-bottom:20px}.sectionhead h2{margin:0;font-size:28px;letter-spacing:-.6px}.sectionhead p{margin:6px 0 0;color:var(--muted);font-size:14px}.count{color:var(--muted);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:21px;cursor:pointer;transition:.18s ease;box-shadow:0 3px 12px #10182808}.card:hover{transform:translateY(-4px);box-shadow:0 12px 28px #10182812;border-color:#cbdcf7}.icon{width:45px;height:45px;border-radius:12px;background:var(--soft);color:var(--p);display:grid;place-items:center;font-size:13px;font-weight:900;margin-bottom:16px}.card h3{margin:0 0 7px;font-size:18px}.card p{margin:0;color:var(--muted);font-size:13px;line-height:1.55}
+.panel{display:none;background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px;box-shadow:0 8px 30px #1018280a}.panel.active{display:block}.back{border:0;background:none;color:var(--p);font-weight:800;cursor:pointer;padding:0;margin-bottom:20px}.calc-head{border-bottom:1px solid var(--line);padding-bottom:19px;margin-bottom:22px}.calc-head h2{margin:0 0 5px;font-size:28px}.calc-head p{margin:0;color:var(--muted)}.formgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.field label{display:block;font-size:13px;font-weight:800;margin-bottom:7px}.field input,.field select{width:100%;height:46px;border:1px solid #d5dce7;border-radius:10px;padding:0 12px;background:#fff;color:var(--ink);outline:0}.field input:focus,.field select:focus{border-color:#5b96e8;box-shadow:0 0 0 3px #1769e014}.checkrow{display:flex;gap:12px;flex-wrap:wrap}.check{display:flex;align-items:center;gap:7px;background:#f7f9fc;border:1px solid var(--line);padding:9px 11px;border-radius:9px;font-size:13px}.check input{accent-color:var(--p)}
+.calcbtn{margin-top:20px;background:var(--p);color:#fff;border:0;border-radius:10px;height:47px;padding:0 22px;font-weight:800;cursor:pointer}.calcbtn:hover{background:var(--pd)}.result{margin-top:22px;padding:18px;background:var(--good);border:1px solid #cce8d6;border-radius:12px}.result strong{font-size:22px}.result small{display:block;color:#4d6658;margin-top:6px;line-height:1.5}.result.warn{background:var(--warn);border-color:#f0d9a2}.info{margin-top:20px;padding:17px;background:#f7f9fc;border-radius:12px;color:#5d6878;font-size:13px;line-height:1.65}.info b{color:#39465a}.about{margin-top:48px}.aboutgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.aboutcard{background:#fff;border:1px solid var(--line);border-radius:15px;padding:20px}.aboutcard h3{margin:0 0 8px;font-size:16px}.aboutcard p{margin:0;color:var(--muted);font-size:13px;line-height:1.6}
+footer{background:#111a2b;color:#aeb8c8;text-align:center;padding:38px 20px;font-size:13px;line-height:1.7}.fl{font-size:20px;font-weight:900;color:#fff;margin-bottom:5px}.fl span{color:#70aaff}
+@media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}.aboutgrid{grid-template-columns:1fr}.navlinks{display:none}}@media(max-width:560px){.grid,.formgrid{grid-template-columns:1fr}.hero{padding:55px 18px 62px}.hero h1{letter-spacing:-1.3px}.panel{padding:21px}.sectionhead{display:block}.count{display:block;margin-top:9px}}
 </style>
+
+<link rel="canonical" href="https://obayzeod.github.io/Medcalc/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="MedCalc — Free Medical Calculators">
+<meta property="og:description" content="Free clinical calculators for medical students and healthcare professionals.">
+<meta property="og:url" content="https://obayzeod.github.io/Medcalc/">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"MedCalc","alternateName":"MedCalc Medical Calculators","url":"https://obayzeod.github.io/Medcalc/"}
+</script>
 </head>
 <body>
-<header><div class="logo">Med<span>Calc</span></div><small>Medical calculators & clinical tools</small></header>
-<div class="container">
-<section class="hero">
-<h1>Medical Calculators</h1>
-<p>Fast, simple clinical calculations for medical students and healthcare professionals.</p>
-<input class="search" id="search" placeholder="Search calculators..." oninput="filterCards()">
-<div class="grid" id="cards">
-<div class="card" data-name="bmi body mass index" onclick="openCalc('bmi')"><h3>BMI Calculator</h3><p>Body Mass Index</p></div>
-<div class="card" data-name="anion gap" onclick="openCalc('anion')"><h3>Anion Gap</h3><p>Calculate serum anion gap</p></div>
-<div class="card" data-name="corrected calcium" onclick="openCalc('calcium')"><h3>Corrected Calcium</h3><p>Adjust calcium for albumin</p></div>
-<div class="card" data-name="creatinine clearance cockcroft gault" onclick="openCalc('crcl')"><h3>Creatinine Clearance</h3><p>Cockcroft–Gault equation</p></div>
-<div class="card" data-name="gcs glasgow coma scale" onclick="openCalc('gcs')"><h3>GCS Calculator</h3><p>Glasgow Coma Scale</p></div>
-</div>
-</section>
+<nav class="nav"><div class="logo">Med<span>Calc</span></div><div class="navlinks"><a href="#calculators">Calculators</a><a href="#about">About</a><a href="#disclaimer">Disclaimer</a></div></nav>
 
-<div id="panel" class="panel">
-<button class="back" onclick="closeCalc()">← Back to calculators</button>
-<div id="calcContent"></div>
-</div>
-</div>
-<footer>Educational tool only. Always verify calculations and clinical decisions with current authoritative references.</footer>
+<section class="hero"><div class="hero-inner">
+<div class="badge">FREE CLINICAL TOOLS</div>
+<h1>Medical calculations, made simple.</h1>
+<p>Fast, clear calculators for medical students and healthcare professionals.</p>
+<div class="searchbox"><span class="searchicon">⌕</span><input id="search" class="search" placeholder="Search a calculator..." oninput="filterCards()"></div>
+</div></section>
+
+<main>
+<section id="calculators">
+<div class="sectionhead"><div><h2>Clinical calculators</h2><p>Choose a tool to calculate a clinical score, value or estimate.</p></div><div id="count" class="count">20 calculators</div></div>
+<div id="cards" class="grid">
+<div class="card" data-n="bmi body mass index" onclick="openCalc('bmi')"><div class="icon">BMI</div><h3>BMI Calculator</h3><p>Body mass index from height and weight.</p></div>
+<div class="card" data-n="bsa body surface area mosteller" onclick="openCalc('bsa')"><div class="icon">BSA</div><h3>BSA Calculator</h3><p>Body surface area using the Mosteller formula.</p></div>
+<div class="card" data-n="ibw ideal body weight devine" onclick="openCalc('ibw')"><div class="icon">IBW</div><h3>Ideal Body Weight</h3><p>Estimate IBW using the Devine formula.</p></div>
+<div class="card" data-n="anion gap electrolytes" onclick="openCalc('ag')"><div class="icon">AG</div><h3>Anion Gap</h3><p>Calculate serum anion gap from electrolytes.</p></div>
+<div class="card" data-n="corrected calcium albumin" onclick="openCalc('ca')"><div class="icon">Ca</div><h3>Corrected Calcium</h3><p>Adjust total calcium for albumin.</p></div>
+<div class="card" data-n="creatinine clearance cockcroft gault renal" onclick="openCalc('crcl')"><div class="icon">Cr</div><h3>Creatinine Clearance</h3><p>Cockcroft–Gault estimate.</p></div>
+<div class="card" data-n="egfr ckd epi kidney renal" onclick="openCalc('egfr')"><div class="icon">eGFR</div><h3>eGFR</h3><p>2021 CKD-EPI creatinine equation.</p></div>
+<div class="card" data-n="gcs glasgow coma scale neurological" onclick="openCalc('gcs')"><div class="icon">GCS</div><h3>Glasgow Coma Scale</h3><p>Eye, verbal and motor responses.</p></div>
+<div class="card" data-n="map mean arterial pressure blood pressure" onclick="openCalc('map')"><div class="icon">MAP</div><h3>Mean Arterial Pressure</h3><p>Estimate MAP from systolic and diastolic BP.</p></div>
+<div class="card" data-n="qtc qt correction bazett fridericia ecg" onclick="openCalc('qtc')"><div class="icon">QTc</div><h3>QTc Calculator</h3><p>Bazett and Fridericia QT correction.</p></div>
+<div class="card" data-n="sodium correction hyperglycemia glucose" onclick="openCalc('na')"><div class="icon">Na</div><h3>Corrected Sodium</h3><p>Estimate sodium correction for hyperglycemia.</p></div>
+<div class="card" data-n="serum osmolality osmolarity" onclick="openCalc('osm')"><div class="icon">Osm</div><h3>Serum Osmolality</h3><p>Calculated serum osmolality.</p></div>
+<div class="card" data-n="wells pulmonary embolism pe dvt" onclick="openCalc('wells')"><div class="icon">W</div><h3>Wells Score — PE</h3><p>Clinical prediction rule for PE.</p></div>
+<div class="card" data-n="curb 65 pneumonia severity" onclick="openCalc('curb')"><div class="icon">CURB</div><h3>CURB-65</h3><p>Severity assessment for community-acquired pneumonia.</p></div>
+<div class="card" data-n="cha2ds2 vasc atrial fibrillation stroke" onclick="openCalc('cha')"><div class="icon">AF</div><h3>CHA₂DS₂-VASc</h3><p>Stroke risk score in atrial fibrillation.</p></div>
+<div class="card" data-n="has bled bleeding atrial fibrillation" onclick="openCalc('has')"><div class="icon">HAS</div><h3>HAS-BLED</h3><p>Bleeding risk assessment in AF.</p></div>
+<div class="card" data-n="qsofa sepsis respiratory pressure consciousness" onclick="openCalc('qsofa')"><div class="icon">qSOFA</div><h3>qSOFA</h3><p>Quick bedside organ dysfunction score.</p></div>
+<div class="card" data-n="apgar newborn birth pediatrics" onclick="openCalc('apgar')"><div class="icon">APGAR</div><h3>APGAR Score</h3><p>Newborn assessment at 1 and 5 minutes.</p></div>
+<div class="card" data-n="maintenance fluids 4 2 1 pediatric" onclick="openCalc('fluids')"><div class="icon">IV</div><h3>Maintenance Fluids</h3><p>4–2–1 hourly maintenance rate.</p></div>
+<div class="card" data-n="heart rate pulse" onclick="openCalc('hr')"><div class="icon">HR</div><h3>Heart Rate</h3><p>Calculate rate from ECG intervals.</p></div>
+</div></section>
+
+<section id="panel" class="panel"><button class="back" onclick="closeCalc()">← Back to calculators</button><div id="content"></div></section>
+
+<section id="about" class="about"><div class="sectionhead"><div><h2>Built for clinical learning</h2><p>Simple tools with transparent formulas and clear outputs.</p></div></div>
+<div class="aboutgrid"><div class="aboutcard"><h3>Fast</h3><p>Designed for quick use on phones, tablets and desktops.</p></div><div class="aboutcard"><h3>Transparent</h3><p>Each calculator shows the main equation or scoring method used.</p></div><div class="aboutcard"><h3>Educational</h3><p>Useful for study, revision and clinical reference—not a substitute for judgment.</p></div></div></section>
+
+<section id="disclaimer" class="info"><b>Important medical disclaimer:</b> MedCalc is an educational and reference tool. Calculated values and scores can be affected by patient factors, units, laboratory methods and guideline updates. Always verify formulas, interpretation, dosing and clinical decisions against current authoritative guidelines, local protocols and appropriate clinical references. This website does not provide individualized medical diagnosis or treatment.</section>
+
+<section id="privacy" class="info" style="margin-top:18px"><b>Privacy:</b> This static website does not require an account and does not ask you to submit patient names, identifiers, medical records or other personal health information. Calculator inputs are processed in your browser. If third-party analytics or advertising services are added later, their own privacy policies and consent requirements will apply.</section>
+<section id="terms" class="info" style="margin-top:18px"><b>Terms of use:</b> MedCalc is provided for educational and reference purposes. You are responsible for verifying calculations, units, formulas, interpretations and clinical decisions. Do not use this website as a substitute for qualified medical assessment, institutional protocols, prescribing information or current professional guidelines.</section>
+</main>
+
+<footer><div class="fl">Med<span>Calc</span></div>Free medical calculators for medical students and healthcare professionals.<br>
+<a href="#privacy" style="color:#d7e5ff;margin:0 8px">Privacy</a> ·
+<a href="#terms" style="color:#d7e5ff;margin:0 8px">Terms</a> ·
+<a href="#disclaimer" style="color:#d7e5ff;margin:0 8px">Medical Disclaimer</a><br>
+© 2026 MedCalc
+</footer>
 
 <script>
-const panel=document.getElementById('panel'), content=document.getElementById('calcContent');
-function openCalc(type){
- document.querySelector('.hero').style.display='none'; panel.classList.add('active');
- const forms={
- bmi:`<h2>BMI Calculator</h2>
- <label>Weight (kg)</label><input id="weight" type="number" min="0">
- <label>Height (cm)</label><input id="height" type="number" min="0">
- <button class="calc" onclick="calcBMI()">Calculate</button><div id="result"></div>`,
- anion:`<h2>Anion Gap Calculator</h2>
- <label>Sodium (Na⁺), mEq/L</label><input id="na" type="number">
- <label>Chloride (Cl⁻), mEq/L</label><input id="cl" type="number">
- <label>Bicarbonate (HCO₃⁻), mEq/L</label><input id="hco3" type="number">
- <button class="calc" onclick="calcAG()">Calculate</button><div id="result"></div>`,
- calcium:`<h2>Corrected Calcium Calculator</h2>
- <label>Total calcium, mg/dL</label><input id="ca" type="number">
- <label>Albumin, g/dL</label><input id="alb" type="number">
- <button class="calc" onclick="calcCa()">Calculate</button><div id="result"></div>`,
- crcl:`<h2>Creatinine Clearance — Cockcroft–Gault</h2>
- <label>Age (years)</label><input id="age" type="number">
- <label>Weight (kg)</label><input id="wt" type="number">
- <label>Serum creatinine (mg/dL)</label><input id="scr" type="number">
- <label>Sex</label><select id="sex"><option value="male">Male</option><option value="female">Female</option></select>
- <button class="calc" onclick="calcCrCl()">Calculate</button><div id="result"></div>`,
- gcs:`<h2>Glasgow Coma Scale</h2>
- <label>Eye opening</label><select id="eye"><option value="4">4 — Spontaneous</option><option value="3">3 — To voice</option><option value="2">2 — To pain</option><option value="1">1 — None</option></select>
- <label>Verbal response</label><select id="verbal"><option value="5">5 — Oriented</option><option value="4">4 — Confused</option><option value="3">3 — Inappropriate words</option><option value="2">2 — Incomprehensible sounds</option><option value="1">1 — None</option></select>
- <label>Motor response</label><select id="motor"><option value="6">6 — Obeys commands</option><option value="5">5 — Localizes pain</option><option value="4">4 — Withdraws</option><option value="3">3 — Abnormal flexion</option><option value="2">2 — Extension</option><option value="1">1 — None</option></select>
- <button class="calc" onclick="calcGCS()">Calculate</button><div id="result"></div>`
- };
- content.innerHTML=forms[type];
-}
-function closeCalc(){panel.classList.remove('active');document.querySelector('.hero').style.display='block'}
-function val(id){return parseFloat(document.getElementById(id).value)}
-function calcBMI(){let w=val('weight'),h=val('height')/100;if(!w||!h)return show('Please enter valid values.');let x=w/(h*h);show('BMI = '+x.toFixed(1))}
-function calcAG(){let x=val('na')-val('cl')-val('hco3');if([val('na'),val('cl'),val('hco3')].some(isNaN))return show('Please enter valid values.');show('Anion Gap = '+x.toFixed(1)+' mEq/L')}
-function calcCa(){let ca=val('ca'),a=val('alb');if([ca,a].some(isNaN))return show('Please enter valid values.');let x=ca+0.8*(4-a);show('Corrected Calcium = '+x.toFixed(1)+' mg/dL')}
-function calcCrCl(){let age=val('age'),wt=val('wt'),scr=val('scr'),sex=document.getElementById('sex').value;if([age,wt,scr].some(isNaN)||scr<=0)return show('Please enter valid values.');let x=((140-age)*wt)/(72*scr);if(sex==='female')x*=0.85;show('Estimated CrCl = '+x.toFixed(1)+' mL/min')}
-function calcGCS(){let x=+document.getElementById('eye').value + +document.getElementById('verbal').value + +document.getElementById('motor').value;show('GCS = '+x+'/15')}
-function show(t){document.getElementById('result').className='result';document.getElementById('result').textContent=t}
-function filterCards(){let q=document.getElementById('search').value.toLowerCase();document.querySelectorAll('.card').forEach(c=>c.style.display=c.dataset.name.includes(q)?'block':'none')}
+const panel=document.getElementById('panel'),content=document.getElementById('content');
+const F={
+bmi:`<div class="calc-head"><h2>BMI Calculator</h2><p>Body Mass Index</p></div><div class="formgrid"><div class="field"><label>Weight (kg)</label><input id="w" type="number" min="0"></div><div class="field"><label>Height (cm)</label><input id="h" type="number" min="0"></div></div><button class="calcbtn" onclick="bmi()">Calculate BMI</button><div id="r"></div><div class="info">Formula: weight (kg) ÷ height² (m). Adult BMI categories should be interpreted in clinical context.</div>`,
+bsa:`<div class="calc-head"><h2>BSA Calculator</h2><p>Mosteller formula</p></div><div class="formgrid"><div class="field"><label>Weight (kg)</label><input id="w" type="number"></div><div class="field"><label>Height (cm)</label><input id="h" type="number"></div></div><button class="calcbtn" onclick="bsa()">Calculate BSA</button><div id="r"></div><div class="info">Mosteller: BSA = √[(height cm × weight kg) ÷ 3600].</div>`,
+ibw:`<div class="calc-head"><h2>Ideal Body Weight</h2><p>Devine formula</p></div><div class="formgrid"><div class="field"><label>Height (cm)</label><input id="h" type="number"></div><div class="field"><label>Sex</label><select id="sex"><option value="m">Male</option><option value="f">Female</option></select></div></div><button class="calcbtn" onclick="ibw()">Calculate IBW</button><div id="r"></div><div class="info">Devine formula uses height in inches: male 50 + 2.3 × inches over 5 ft; female 45.5 + 2.3 × inches over 5 ft. This is an estimate, not a universal dosing weight.</div>`,
+ag:`<div class="calc-head"><h2>Anion Gap</h2><p>Serum anion gap</p></div><div class="formgrid"><div class="field"><label>Sodium (mEq/L)</label><input id="na" type="number"></div><div class="field"><label>Chloride (mEq/L)</label><input id="cl" type="number"></div><div class="field"><label>Bicarbonate (mEq/L)</label><input id="hco" type="number"></div></div><button class="calcbtn" onclick="ag()">Calculate</button><div id="r"></div><div class="info">Formula: Na − (Cl + HCO₃). This version does not include potassium.</div>`,
+ca:`<div class="calc-head"><h2>Corrected Calcium</h2><p>Albumin-adjusted total calcium</p></div><div class="formgrid"><div class="field"><label>Total calcium (mg/dL)</label><input id="ca" type="number"></div><div class="field"><label>Albumin (g/dL)</label><input id="alb" type="number"></div></div><button class="calcbtn" onclick="ca()">Calculate</button><div id="r"></div><div class="info">Common estimate: corrected Ca = measured Ca + 0.8 × (4 − albumin). Formula may be less reliable in some clinical settings.</div>`,
+crcl:`<div class="calc-head"><h2>Creatinine Clearance</h2><p>Cockcroft–Gault equation</p></div><div class="formgrid"><div class="field"><label>Age (years)</label><input id="age" type="number"></div><div class="field"><label>Weight (kg)</label><input id="wt" type="number"></div><div class="field"><label>Serum creatinine (mg/dL)</label><input id="scr" type="number"></div><div class="field"><label>Sex</label><select id="sex"><option value="m">Male</option><option value="f">Female</option></select></div></div><button class="calcbtn" onclick="crcl()">Calculate</button><div id="r"></div><div class="info">Cockcroft–Gault estimates creatinine clearance. The appropriate body weight for a specific patient/drug may differ.</div>`,
+egfr:`<div class="calc-head"><h2>eGFR</h2><p>2021 CKD-EPI creatinine equation</p></div><div class="formgrid"><div class="field"><label>Age (years)</label><input id="age" type="number"></div><div class="field"><label>Serum creatinine (mg/dL)</label><input id="scr" type="number"></div><div class="field"><label>Sex</label><select id="sex"><option value="m">Male</option><option value="f">Female</option></select></div></div><button class="calcbtn" onclick="egfr()">Calculate eGFR</button><div id="r"></div><div class="info">2021 CKD-EPI creatinine equation; result is normalized to 1.73 m². This equation does not use race.</div>`,
+gcs:`<div class="calc-head"><h2>Glasgow Coma Scale</h2><p>Eye, verbal and motor responses</p></div><div class="formgrid"><div class="field"><label>Eye opening</label><select id="e"><option value="4">4 — Spontaneous</option><option value="3">3 — To voice</option><option value="2">2 — To pressure</option><option value="1">1 — None</option></select></div><div class="field"><label>Verbal response</label><select id="v"><option value="5">5 — Oriented</option><option value="4">4 — Confused</option><option value="3">3 — Inappropriate words</option><option value="2">2 — Incomprehensible sounds</option><option value="1">1 — None</option></select></div><div class="field"><label>Motor response</label><select id="m"><option value="6">6 — Obeys commands</option><option value="5">5 — Localizes</option><option value="4">4 — Withdraws</option><option value="3">3 — Abnormal flexion</option><option value="2">2 — Extension</option><option value="1">1 — None</option></select></div></div><button class="calcbtn" onclick="gcs()">Calculate GCS</button><div id="r"></div><div class="info">Total score 3–15. Document individual components whenever possible.</div>`,
+map:`<div class="calc-head"><h2>Mean Arterial Pressure</h2><p>Estimated MAP from blood pressure</p></div><div class="formgrid"><div class="field"><label>Systolic BP (mmHg)</label><input id="sbp" type="number"></div><div class="field"><label>Diastolic BP (mmHg)</label><input id="dbp" type="number"></div></div><button class="calcbtn" onclick="map()">Calculate MAP</button><div id="r"></div><div class="info">Approximation: MAP ≈ DBP + (SBP − DBP) ÷ 3. Accuracy can vary with heart rate and rhythm.</div>`,
+qtc:`<div class="calc-head"><h2>QTc Calculator</h2><p>Bazett and Fridericia corrections</p></div><div class="formgrid"><div class="field"><label>QT interval (ms)</label><input id="qt" type="number"></div><div class="field"><label>RR interval (ms)</label><input id="rr" type="number"></div></div><button class="calcbtn" onclick="qtc()">Calculate QTc</button><div id="r"></div><div class="info">QTc Bazett = QT/√RR(sec). QTc Fridericia = QT/∛RR(sec). QT correction should be interpreted with the ECG and clinical context.</div>`,
+na:`<div class="calc-head"><h2>Corrected Sodium</h2><p>Hyperglycemia correction estimate</p></div><div class="formgrid"><div class="field"><label>Measured sodium (mEq/L)</label><input id="na" type="number"></div><div class="field"><label>Glucose (mg/dL)</label><input id="glu" type="number"></div></div><button class="calcbtn" onclick="naCorr()">Calculate</button><div id="r"></div><div class="info">Uses +1.6 mEq/L sodium for each 100 mg/dL glucose above 100. Published correction factors vary; interpret clinically.</div>`,
+osm:`<div class="calc-head"><h2>Serum Osmolality</h2><p>Calculated serum osmolality</p></div><div class="formgrid"><div class="field"><label>Sodium (mEq/L)</label><input id="na" type="number"></div><div class="field"><label>Glucose (mg/dL)</label><input id="glu" type="number"></div><div class="field"><label>BUN (mg/dL)</label><input id="bun" type="number"></div></div><button class="calcbtn" onclick="osm()">Calculate</button><div id="r"></div><div class="info">Calculated osmolality = 2 × Na + glucose/18 + BUN/2.8, in mOsm/kg.</div>`,
+wells:`<div class="calc-head"><h2>Wells Score — Pulmonary Embolism</h2><p>Clinical prediction rule</p></div><div class="checkrow">
+<label class="check"><input type="checkbox" id="w1"> Clinical signs of DVT (+3)</label><label class="check"><input type="checkbox" id="w2"> PE most likely diagnosis (+3)</label><label class="check"><input type="checkbox" id="w3"> HR &gt;100 (+1.5)</label><label class="check"><input type="checkbox" id="w4"> Immobilization ≥3 days or surgery in past 4 weeks (+1.5)</label><label class="check"><input type="checkbox" id="w5"> Previous DVT/PE (+1.5)</label><label class="check"><input type="checkbox" id="w6"> Hemoptysis (+1)</label><label class="check"><input type="checkbox" id="w7"> Malignancy (+1)</label></div><button class="calcbtn" onclick="wells()">Calculate Score</button><div id="r"></div><div class="info">Interpretation depends on the clinical pathway used. Common two-tier approach: ≤4 PE unlikely; &gt;4 PE likely. Follow local diagnostic algorithms.</div>`,
+curb:`<div class="calc-head"><h2>CURB-65</h2><p>Community-acquired pneumonia severity</p></div><div class="checkrow"><label class="check"><input type="checkbox" id="c1"> Confusion (+1)</label><label class="check"><input type="checkbox" id="c2"> Urea &gt;7 mmol/L (+1)</label><label class="check"><input type="checkbox" id="c3"> Respiratory rate ≥30/min (+1)</label><label class="check"><input type="checkbox" id="c4"> Blood pressure: SBP &lt;90 or DBP ≤60 mmHg (+1)</label><label class="check"><input type="checkbox" id="c5"> Age ≥65 years (+1)</label></div><button class="calcbtn" onclick="curb()">Calculate Score</button><div id="r"></div><div class="info">CURB-65 is a severity aid, not a stand-alone admission decision. Consider comorbidities, oxygenation, social factors and local guidance.</div>`,
+cha:`<div class="calc-head"><h2>CHA₂DS₂-VASc</h2><p>Stroke risk score in atrial fibrillation</p></div><div class="checkrow"><label class="check"><input type="checkbox" id="h"> Heart failure/LV dysfunction (+1)</label><label class="check"><input type="checkbox" id="bp"> Hypertension (+1)</label><label class="check"><input type="checkbox" id="a75"> Age ≥75 (+2)</label><label class="check"><input type="checkbox" id="dm"> Diabetes (+1)</label><label class="check"><input type="checkbox" id="st"> Prior stroke/TIA/systemic embolism (+2)</label><label class="check"><input type="checkbox" id="va"> Vascular disease (+1)</label><label class="check"><input type="checkbox" id="a65"> Age 65–74 (+1)</label><label class="check"><input type="checkbox" id="female"> Female sex (+1)</label></div><button class="calcbtn" onclick="cha()">Calculate Score</button><div id="r"></div><div class="info">For atrial fibrillation/flutter stroke-risk assessment. Anticoagulation decisions should follow current guidelines and patient-specific factors.</div>`,
+has:`<div class="calc-head"><h2>HAS-BLED</h2><p>Bleeding risk assessment in AF</p></div><div class="checkrow"><label class="check"><input type="checkbox" id="hbp"> Hypertension (SBP &gt;160) (+1)</label><label class="check"><input type="checkbox" id="renal"> Abnormal renal function (+1)</label><label class="check"><input type="checkbox" id="liver"> Abnormal liver function (+1)</label><label class="check"><input type="checkbox" id="stroke"> Stroke history (+1)</label><label class="check"><input type="checkbox" id="bleed"> Bleeding history/predisposition (+1)</label><label class="check"><input type="checkbox" id="inr"> Labile INR (+1)</label><label class="check"><input type="checkbox" id="age65"> Age &gt;65 (+1)</label><label class="check"><input type="checkbox" id="drug"> Drugs predisposing to bleeding (+1)</label><label class="check"><input type="checkbox" id="alcohol"> Alcohol excess (+1)</label></div><button class="calcbtn" onclick="hasbled()">Calculate Score</button><div id="r"></div><div class="info">Renal and liver categories can each contribute one point; drugs and alcohol can each contribute one point. A high score flags modifiable bleeding risks—it is not by itself a reason to withhold anticoagulation.</div>`,
+qsofa:`<div class="calc-head"><h2>qSOFA</h2><p>Quick bedside organ dysfunction score</p></div><div class="checkrow"><label class="check"><input type="checkbox" id="qs1"> Respiratory rate ≥22/min (+1)</label><label class="check"><input type="checkbox" id="qs2"> Altered mentation (+1)</label><label class="check"><input type="checkbox" id="qs3"> Systolic BP ≤100 mmHg (+1)</label></div><button class="calcbtn" onclick="qsofa()">Calculate Score</button><div id="r"></div><div class="info">qSOFA is a bedside risk-stratification tool and should not be used alone to diagnose sepsis.</div>`,
+apgar:`<div class="calc-head"><h2>APGAR Score</h2><p>Newborn assessment</p></div><div class="formgrid"><div class="field"><label>Appearance (color)</label><select id="ap1"><option value="0">0 — Blue/pale</option><option value="1">1 — Body pink, extremities blue</option><option value="2">2 — Completely pink</option></select></div><div class="field"><label>Pulse</label><select id="ap2"><option value="0">0 — Absent</option><option value="1">1 — &lt;100/min</option><option value="2">2 — ≥100/min</option></select></div><div class="field"><label>Grimace (reflex irritability)</label><select id="ap3"><option value="0">0 — No response</option><option value="1">1 — Grimace</option><option value="2">2 — Cough/sneeze/cry</option></select></div><div class="field"><label>Activity (muscle tone)</label><select id="ap4"><option value="0">0 — Limp</option><option value="1">1 — Some flexion</option><option value="2">2 — Active motion</option></select></div><div class="field"><label>Respiration</label><select id="ap5"><option value="0">0 — Absent</option><option value="1">1 — Slow/irregular</option><option value="2">2 — Good cry</option></select></div></div><button class="calcbtn" onclick="apgar()">Calculate APGAR</button><div id="r"></div><div class="info">APGAR is recorded at specified times after birth and does not by itself determine resuscitation steps or long-term outcome.</div>`,
+fluids:`<div class="calc-head"><h2>Maintenance IV Fluids</h2><p>4–2–1 hourly rule</p></div><div class="formgrid"><div class="field"><label>Weight (kg)</label><input id="wt" type="number"></div></div><button class="calcbtn" onclick="fluids()">Calculate Rate</button><div id="r"></div><div class="info">4 mL/kg/hr for first 10 kg + 2 mL/kg/hr for next 10 kg + 1 mL/kg/hr for each kg above 20. This is a traditional calculation and does not replace individualized fluid assessment.</div>`,
+hr:`<div class="calc-head"><h2>Heart Rate from ECG</h2><p>Regular rhythm method</p></div><div class="formgrid"><div class="field"><label>RR interval (large boxes)</label><input id="boxes" type="number" min="0"></div><div class="field"><label>RR interval (seconds), optional</label><input id="secs" type="number" min="0"></div></div><button class="calcbtn" onclick="hr()">Calculate Heart Rate</button><div id="r"></div><div class="info">For a regular rhythm: HR ≈ 300 ÷ large boxes, or 60 ÷ RR interval in seconds. Irregular rhythms require a different method.</div>`
+};
+function openCalc(t){document.getElementById('calculators').style.display='none';document.getElementById('about').style.display='none';document.getElementById('disclaimer').style.display='none';panel.classList.add('active');content.innerHTML=F[t];scrollTo({top:0,behavior:'smooth'})}
+function closeCalc(){panel.classList.remove('active');document.getElementById('calculators').style.display='block';document.getElementById('about').style.display='block';document.getElementById('disclaimer').style.display='block';scrollTo({top:0,behavior:'smooth'})}
+function n(id){return parseFloat(document.getElementById(id).value)}function bad(){res('Please enter valid values.')}function res(t,s='',i=''){document.getElementById('r').className='result';document.getElementById('r').innerHTML='<strong>'+t+'</strong>'+(s?'<small>'+s+'</small>':'')+(i?'<div style="margin-top:10px;color:#39465a;line-height:1.55"><b>Interpretation:</b> '+i+'</div>':'')}
+function bmi(){let w=n('w'),h=n('h')/100;if(!w||!h)return bad();let x=w/h/h, i=x<18.5?'Underweight range':x<25?'Healthy-weight range':x<30?'Overweight range':'Obesity range';res('BMI = '+x.toFixed(1),'Adult screening categories: <18.5 underweight; 18.5–24.9 healthy weight; 25–29.9 overweight; ≥30 obesity.',i+'. BMI is a screening measure and should be interpreted with age, body composition and clinical context.')}
+function bsa(){let w=n('w'),h=n('h');if(!w||!h)return bad();let x=Math.sqrt(w*h/3600);res('BSA = '+x.toFixed(2)+' m²','Mosteller estimate.', 'BSA is commonly used for selected drug dosing and physiologic calculations, but the appropriate dosing method depends on the medication and clinical protocol.')}
+function ibw(){let h=n('h'),s=document.getElementById('sex').value;if(!h)return bad();let inch=h/2.54,base=inch-60,r=(s==='m'?50:45.5)+2.3*base;res('Estimated IBW = '+r.toFixed(1)+' kg','Devine estimate.','IBW is a reference estimate; actual medication dosing may use total, ideal, adjusted or lean body weight depending on the drug and guideline.')}
+function ag(){let a=n('na'),b=n('cl'),c=n('hco');if([a,b,c].some(isNaN))return bad();let x=a-b-c;res('Anion Gap = '+x.toFixed(1)+' mEq/L','Albumin is not included in this basic formula.','A higher-than-expected gap can support the presence of unmeasured anions, but interpretation should account for albumin, laboratory reference ranges and the clinical picture.')}
+function ca(){let a=n('ca'),b=n('alb');if([a,b].some(isNaN))return bad();let x=a+.8*(4-b);res('Corrected Calcium = '+x.toFixed(1)+' mg/dL','Common albumin-correction estimate.','Use caution in critically ill patients or when calcium binding is abnormal; ionized calcium may be more clinically informative when indicated.')}
+function crcl(){let a=n('age'),w=n('wt'),s=n('scr'),sex=document.getElementById('sex').value;if([a,w,s].some(isNaN)||s<=0)return bad();let x=(140-a)*w/(72*s);if(sex==='f')x*=.85;res('Estimated CrCl = '+x.toFixed(1)+' mL/min','Cockcroft–Gault estimate.','This estimate is commonly used for selected drug dosing. Choice of body weight and clinical interpretation should follow the specific drug reference and patient context.')}
+function egfr(){let a=n('age'),s=n('scr'),sex=document.getElementById('sex').value;if([a,s].some(isNaN)||s<=0)return bad();let k=sex==='f'?.7:.9,alpha=sex==='f'?-.241:-.302,m=sex==='f'?1.012:1;let x=142*Math.pow(Math.min(s/k,1),alpha)*Math.pow(Math.max(s/k,1),-1.2)*Math.pow(.9938,a)*m;res('eGFR = '+x.toFixed(0)+' mL/min/1.73 m²','2021 CKD-EPI creatinine estimate.','eGFR is an estimate of kidney filtration, not a direct measurement. Trends and clinical context matter; avoid using a single value as a diagnosis by itself.')}
+function gcs(){let x=+document.getElementById('e').value + +document.getElementById('v').value + +document.getElementById('m').value;res('GCS = '+x+'/15','Document E, V and M separately when possible.',x<=8?'A score ≤8 is commonly associated with severe impairment and requires urgent clinical assessment; airway management decisions depend on the whole clinical picture.':x<=12?'Moderate impairment range; reassess trends and clinical context.':'Higher score, but the individual components and trend remain important.')}
+function map(){let a=n('sbp'),b=n('dbp');if([a,b].some(isNaN))return bad();let x=b+(a-b)/3;res('MAP ≈ '+x.toFixed(0)+' mmHg','Approximation for a regular rhythm.','MAP is a perfusion-related pressure estimate; there is no single universal target for every patient. Interpret with the clinical situation and treatment context.')}
+function qtc(){let qt=n('qt'),rr=n('rr');if([qt,rr].some(isNaN)||rr<=0)return bad();let r=rr/1000,b=qt/Math.sqrt(r),f=qt/Math.cbrt(r);res('QTc Bazett = '+b.toFixed(0)+' ms','QTc Fridericia = '+f.toFixed(0)+' ms','QT correction depends on heart rate and method. Markedly prolonged QTc can increase arrhythmia risk and should be reviewed with the ECG, medications and electrolytes.')}
+function naCorr(){let a=n('na'),g=n('glu');if([a,g].some(isNaN))return bad();let x=a+1.6*((g-100)/100);res('Corrected Na⁺ ≈ '+x.toFixed(1)+' mEq/L','Uses a 1.6 mEq/L correction per 100 mg/dL glucose above 100.','Correction factors vary in the literature and clinical setting. Treat the patient and interpret sodium in the context of glucose, volume status and the overall presentation.')}
+function osm(){let a=n('na'),g=n('glu'),b=n('bun');if([a,g,b].some(isNaN))return bad();let x=2*a+g/18+b/2.8;res('Calculated Osmolality ≈ '+x.toFixed(1)+' mOsm/kg','Calculated from sodium, glucose and BUN.','Compare calculated and measured osmolality when clinically indicated; a meaningful osmolar gap can have important causes that require clinical evaluation.')}
+function sum(ids){return ids.reduce((a,id)=>a+(document.getElementById(id).checked?({'w1':3,'w2':3,'w3':1.5,'w4':1.5,'w5':1.5,'w6':1,'w7':1,'c1':1,'c2':1,'c3':1,'c4':1,'c5':1,'h':1,'bp':1,'a75':2,'dm':1,'st':2,'va':1,'a65':1,'female':1,'hbp':1,'renal':1,'liver':1,'stroke':1,'bleed':1,'inr':1,'age65':1,'drug':1,'alcohol':1,'qs1':1,'qs2':1,'qs3':1}[id]||0):0),0)}
+function wells(){let x=sum(['w1','w2','w3','w4','w5','w6','w7']);res('Wells PE = '+x,'Two-tier interpretation: ≤4 PE unlikely; >4 PE likely.','This score estimates pretest probability; it does not diagnose PE. Combine it with validated diagnostic pathways, D-dimer when appropriate, imaging and patient-specific factors.')}
+function curb(){let x=sum(['c1','c2','c3','c4','c5']);let s=x<=1?'Lower score; outpatient management may be appropriate when the overall clinical picture supports it.':x===2?'Intermediate severity; consider site of care carefully.':'Higher severity; assess promptly for an appropriate level of care.';res('CURB-65 = '+x+'/5',s,'The score supports severity assessment but should not replace assessment of oxygenation, comorbidities, complications, social circumstances and clinician judgment.')}
+function cha(){let x=sum(['h','bp','a75','dm','st','va','a65','female']);res('CHA₂DS₂-VASc = '+x,'Higher scores generally indicate greater thromboembolic risk in AF.','Use the score within the current AF guideline and patient-specific context; anticoagulation decisions should not be made from the number alone.')}
+function hasbled(){let x=sum(['hbp','renal','liver','stroke','bleed','inr','age65','drug','alcohol']);res('HAS-BLED = '+x+'/9',x>=3?'Score ≥3: review and address modifiable bleeding risks.':'Lower score, but individual bleeding risks still matter.','HAS-BLED is intended to identify bleeding risk and modifiable factors; a high score is not, by itself, a reason to withhold indicated anticoagulation.')}
+function qsofa(){let x=sum(['qs1','qs2','qs3']);res('qSOFA = '+x+'/3',x>=2?'≥2: increased risk; evaluate the patient promptly and consider broader sepsis assessment.':'qSOFA <2 does not exclude serious infection or sepsis.','qSOFA is a risk-stratification tool, not a diagnostic test for sepsis. Use broader clinical assessment and current sepsis guidance.')}
+function apgar(){let x=+document.getElementById('ap1').value + +document.getElementById('ap2').value + +document.getElementById('ap3').value + +document.getElementById('ap4').value + +document.getElementById('ap5').value;res('APGAR = '+x+'/10','Record the score at the appropriate time after birth.','APGAR describes the newborn’s condition at the time of assessment. It does not by itself determine the need for resuscitation or predict an individual long-term outcome.')}
+function fluids(){let w=n('wt');if(!w||w<0)return bad();let r=w<=10?4*w:w<=20?40+2*(w-10):60+(w-20);res('Maintenance rate ≈ '+r.toFixed(0)+' mL/hr','Traditional 4–2–1 hourly estimate.','This is a starting calculation, not an individualized fluid prescription. Consider age, renal/cardiac function, electrolytes, ongoing losses, oral intake and local pediatric/adult protocols.')}
+function hr(){let b=n('boxes'),s=n('secs');if(s>0)return res('Heart Rate ≈ '+(60/s).toFixed(0)+' bpm','Using RR interval in seconds.','This method assumes a regular rhythm. For irregular rhythms, count beats over a longer ECG strip/time interval. Interpret tachycardia or bradycardia with symptoms and clinical context.');if(b>0)return res('Heart Rate ≈ '+(300/b).toFixed(0)+' bpm','Using the 300 rule for large boxes.','This method assumes a regular rhythm. For irregular rhythms, use an appropriate irregular-rhythm method.');bad()}
+function filterCards(){let q=document.getElementById('search').value.toLowerCase(),z=0;document.querySelectorAll('.card').forEach(x=>{let y=x.dataset.n.includes(q);x.style.display=y?'block':'none';if(y)z++});document.getElementById('count').textContent=z+' calculator'+(z===1?'':'s')}
 </script>
-</body>
-</html>
+</body></html>
